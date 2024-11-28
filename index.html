@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video và Lời Bài Hát</title>
+    <title>Video với Lời Bài Hát</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,8 +13,8 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            height: 100vh;
-            background-color: #f4f4f4;
+            min-height: 100vh;
+            background-color: #f9f9f9;
         }
 
         .video-container {
@@ -32,26 +32,22 @@
         .lyrics-container {
             width: 100%;
             max-width: 800px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .lyrics {
-            white-space: pre-line;
-            font-size: 16px;
+            text-align: center;
+            font-size: 18px;
             line-height: 1.6;
             color: #333;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .lyrics p {
-            margin-bottom: 10px;
-            visibility: hidden; /* Ẩn các lời bài hát mặc định */
+        .lyrics-container p {
+            display: none; /* Ẩn lời bài hát mặc định */
         }
 
-        .lyrics .visible {
-            visibility: visible; /* Hiển thị lời bài hát khi đến thời gian */
+        .lyrics-container p.active {
+            display: block; /* Hiển thị lời bài hát khi khớp thời gian */
             font-weight: bold;
         }
     </style>
@@ -59,60 +55,63 @@
 <body>
 
     <div class="video-container">
-        <iframe id="video" src="https://www.youtube.com/embed/_zqKrYCj44Y?enablejsapi=1&autoplay=1&loop=1&playlist=_zqKrYCj44Y" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe id="video" src="https://www.youtube.com/embed/_zqKrYCj44Y?enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
-    <div class="lyrics-container">
-        <div class="lyrics" id="lyrics">
-            <p id="line1">誰よりも</p>
-            <p id="line2">「救いたい」と悲劇を気取ってた</p>
-            <p id="line3">面倒よりも</p>
-            <p id="line4">それが砕いても、煮込んでも</p>
-            <p id="line5">食べれない故に</p>
-        </div>
+    <div class="lyrics-container" id="lyrics">
+        <p id="line1">誰よりも</p>
+        <p id="line2">「救いたい」と悲劇を気取ってた</p>
+        <p id="line3">面倒よりも</p>
+        <p id="line4">それが砕いても、煮込んでも</p>
+        <p id="line5">食べれない故に</p>
     </div>
 
     <script>
-        const lyrics = document.getElementById('lyrics');
-        const lines = lyrics.getElementsByTagName('p');
-        
-        const subtitleData = [
-            { timeStart: 0, timeEnd: 5, line: "line1" },
-            { timeStart: 5, timeEnd: 10, line: "line2" },
-            { timeStart: 10, timeEnd: 15, line: "line3" },
-            { timeStart: 15, timeEnd: 20, line: "line4" },
-            { timeStart: 20, timeEnd: 25, line: "line5" },
+        const lyrics = [
+            { start: 0, end: 5, text: "line1" },  // Lời bài hát 1 (0-5 giây)
+            { start: 5, end: 10, text: "line2" }, // Lời bài hát 2 (5-10 giây)
+            { start: 10, end: 15, text: "line3" }, // Lời bài hát 3 (10-15 giây)
+            { start: 15, end: 20, text: "line4" }, // Lời bài hát 4 (15-20 giây)
+            { start: 20, end: 25, text: "line5" }  // Lời bài hát 5 (20-25 giây)
         ];
 
-        function checkTime(currentTime) {
-            subtitleData.forEach((subtitle) => {
-                const element = document.getElementById(subtitle.line);
-                if (currentTime >= subtitle.timeStart && currentTime <= subtitle.timeEnd) {
-                    element.classList.add('visible');
-                } else {
-                    element.classList.remove('visible');
-                }
-            });
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                setInterval(() => {
-                    const currentTime = player.getCurrentTime();
-                    checkTime(currentTime);
-                }, 1000);
-            }
-        }
-
         let player;
+
+        // Khi API YouTube sẵn sàng
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('video', {
                 events: {
-                    'onStateChange': onPlayerStateChange
+                    onStateChange: onPlayerStateChange
                 }
             });
         }
+
+        // Khi trạng thái video thay đổi
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                setInterval(() => {
+                    syncLyrics(player.getCurrentTime());
+                }, 500); // Cập nhật lời bài hát mỗi 500ms
+            }
+        }
+
+        // Đồng bộ lời bài hát với thời gian phát
+        function syncLyrics(currentTime) {
+            lyrics.forEach(lyric => {
+                const line = document.getElementById(lyric.text);
+                if (currentTime >= lyric.start && currentTime <= lyric.end) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+
+        // Thêm script API YouTube
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     </script>
-    <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
