@@ -60,6 +60,12 @@
 
         .lyrics p {
             margin-bottom: 10px;
+            visibility: hidden; /* Ẩn các lời bài hát mặc định */
+        }
+
+        .lyrics .visible {
+            visibility: visible; /* Hiển thị lời bài hát khi đến thời gian */
+            font-weight: bold;
         }
     </style>
 </head>
@@ -69,71 +75,51 @@
         <!-- Video YouTube -->
         <div class="video-container">
             <h2>Video</h2>
-            <iframe src="https://www.youtube.com/embed/_zqKrYCj44Y" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="video" src="https://www.youtube.com/embed/_zqKrYCj44Y?autoplay=1&loop=1&playlist=_zqKrYCj44Y" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <!-- Lời bài hát -->
         <div class="lyrics-container">
             <h2>Lời Bài Hát</h2>
-            <div class="lyrics">
-                <p>誰よりも</p>
-                <p>「救いたい」と悲劇を気取ってた</p>
-                <p>面倒よりも</p>
-                <p>それが砕いても、煮込んでも</p>
-                <p>食べれない故に</p>
-                <p>大脳の意思では</p>
-                <p>静観がキメの一手なんだって</p>
-                <p>だが、心臓が言うに</p>
-                <p>芽吹けば栄養さ</p>
-                <p>この先も誰かを想うたび</p>
-                <p>風纏い擦り傷が絶えないだろう</p>
-                <p>だがやがてこの風、受けるたびに</p>
-                <p>その、変え難い</p>
-                <p>ぬくい痛みに</p>
-                <p>報われていたい</p>
-                <p>はず</p>
-                <p>ジリジリ</p>
-                <p>頬つたって痛いよ</p>
-                <p>芽吹いた</p>
-                <p>ヒラヒラ</p>
-                <p>喉元つたって</p>
-                <p>吸い込み</p>
-                <p>肺が痛いよ</p>
-                <p>でもね</p>
-                <p>トクトク</p>
-                <p>あたたかいね</p>
-                <p>それが大脳の意思では</p>
-                <p>食わず嫌いがキメの一手だったって</p>
-                <p>また、心臓が言うには</p>
-                <p>君もそう、風神さ</p>
-                <p>この先も誰かを想うたび</p>
-                <p>風い擦り傷が絶えないだろう</p>
-                <p>だがやがてこの風、受けるたびに</p>
-                <p>その、変え難い</p>
-                <p>ぬくい痛みに</p>
-                <p>報われていたい</p>
-                <p>はず</p>
-                <p>もしもこの世の隙間に</p>
-                <p>愛を少し分けられたなら</p>
-                <p>それでこのぬくもりに</p>
-                <p>隙間風も</p>
-                <p>凪ぐだろうか</p>
-                <p>僕が、誰かを想うたび</p>
-                <p>風纏い擦り傷が絶えないだろう</p>
-                <p>だがやがてこの風、受けるたびに</p>
-                <p>その、変え難い</p>
-                <p>ぬくい痛みに</p>
-                <p>拭われて</p>
-                <p>あなたを想うたびに</p>
-                <p>風纏い擦り傷が絶えないだろう</p>
-                <p>だがやがてこの風、受けるたびに</p>
-                <p>その、変え難い</p>
-                <p>ぬくい痛みに</p>
-                <p>救われていた</p>
-                <p>はずだから</p>
+            <div class="lyrics" id="lyrics">
+                <!-- Lời bài hát sẽ được thêm ở đây -->
+                <p id="line1">誰よりも</p>
+                <p id="line2">「救いたい」と悲劇を気取ってた</p>
+                <p id="line3">面倒よりも</p>
+                <p id="line4">それが砕いても、煮込んでも</p>
+                <p id="line5">食べれない故に</p>
             </div>
         </div>
     </div>
 
+    <script>
+        const video = document.getElementById('video');
+        const lyrics = document.getElementById('lyrics');
+        const lines = lyrics.getElementsByTagName('p');
+        
+        const subtitleData = [
+            { timeStart: 0, timeEnd: 5, line: "誰よりも" },
+            { timeStart: 5, timeEnd: 10, line: "「救いたい」と悲劇を気取ってた" },
+            { timeStart: 10, timeEnd: 15, line: "面倒よりも" },
+            { timeStart: 15, timeEnd: 20, line: "それが砕いても、煮込んでも" },
+            { timeStart: 20, timeEnd: 25, line: "食べれない故に" },
+        ];
+
+        // Function to check the current time of the video and show/hide lyrics
+        function checkVideoTime() {
+            const videoTime = video.contentWindow.document.querySelector("video").currentTime;
+            
+            subtitleData.forEach((subtitle, index) => {
+                if (videoTime >= subtitle.timeStart && videoTime <= subtitle.timeEnd) {
+                    lines[index].classList.add('visible'); // Show the current line
+                } else {
+                    lines[index].classList.remove('visible'); // Hide other lines
+                }
+            });
+        }
+
+        // Update lyrics every second based on video time
+        setInterval(checkVideoTime, 100);
+    </script>
 </body>
 </html>
