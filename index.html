@@ -3,26 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lyrics Sync</title>
+    <title>Ca sĩ và bài hát</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 20px;
             background-color: #f9f9f9;
         }
-        iframe {
-            margin-top: 20px;
-            width: 560px;
-            height: 315px;
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            background-color: #eee;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .sidebar h2 {
+            text-align: center;
+        }
+
+        .singer {
+            margin-bottom: 20px;
+        }
+
+        .singer-name {
+            font-size: 18px;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .song-list {
+            display: none;
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .song-item {
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        /* Main content area */
+        .main-content {
+            width: 75%;
+            padding: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
         .lyrics {
             margin-top: 20px;
-            width: 560px;
             background: #fff;
             padding: 10px;
             border: 1px solid #ddd;
@@ -30,77 +68,119 @@
             font-size: 16px;
             line-height: 1.5;
         }
+
         .highlight {
             color: #d9534f;
             font-weight: bold;
         }
+
     </style>
 </head>
 <body>
-    <h1>同期歌詞</h1>
-    <!-- YouTube Video -->
-    <iframe id="video" src="https://www.youtube.com/embed/_zqKrYCj44Y?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <!-- Lyrics Container -->
-    <div class="lyrics" id="lyrics">
-        <!-- Lyrics will display here -->
+
+    <!-- Sidebar (left side) -->
+    <div class="sidebar">
+        <h2>Ca Sĩ</h2>
+        <div class="singer">
+            <div class="singer-name" onclick="toggleSongs('singer1')">Ca sĩ 1</div>
+            <ul id="singer1" class="song-list">
+                <li class="song-item" onclick="loadSong('song1')">Bài hát 1</li>
+                <li class="song-item" onclick="loadSong('song2')">Bài hát 2</li>
+                <li class="song-item" onclick="loadSong('song3')">Bài hát 3</li>
+            </ul>
+        </div>
+
+        <div class="singer">
+            <div class="singer-name" onclick="toggleSongs('singer2')">Ca sĩ 2</div>
+            <ul id="singer2" class="song-list">
+                <li class="song-item" onclick="loadSong('song4')">Bài hát 1</li>
+                <li class="song-item" onclick="loadSong('song5')">Bài hát 2</li>
+                <li class="song-item" onclick="loadSong('song6')">Bài hát 3</li>
+            </ul>
+        </div>
+
+        <div class="singer">
+            <div class="singer-name" onclick="toggleSongs('singer3')">Ca sĩ 3</div>
+            <ul id="singer3" class="song-list">
+                <li class="song-item" onclick="loadSong('song7')">Bài hát 1</li>
+                <li class="song-item" onclick="loadSong('song8')">Bài hát 2</li>
+                <li class="song-item" onclick="loadSong('song9')">Bài hát 3</li>
+            </ul>
+        </div>
+
+        <div class="singer">
+            <div class="singer-name" onclick="toggleSongs('singer4')">Ca sĩ 4</div>
+            <ul id="singer4" class="song-list">
+                <li class="song-item" onclick="loadSong('song10')">Bài hát 1</li>
+                <li class="song-item" onclick="loadSong('song11')">Bài hát 2</li>
+                <li class="song-item" onclick="loadSong('song12')">Bài hát 3</li>
+            </ul>
+        </div>
+
+        <div class="singer">
+            <div class="singer-name" onclick="toggleSongs('singer5')">Ca sĩ 5</div>
+            <ul id="singer5" class="song-list">
+                <li class="song-item" onclick="loadSong('song13')">Bài hát 1</li>
+                <li class="song-item" onclick="loadSong('song14')">Bài hát 2</li>
+                <li class="song-item" onclick="loadSong('song15')">Bài hát 3</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Main content area (right side) -->
+    <div class="main-content">
+        <h1 id="songTitle">Chọn bài hát để nghe</h1>
+        <iframe id="video" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div id="lyrics" class="lyrics"></div>
     </div>
 
     <script>
-        // YouTube API Player
-        let player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('video', {
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+        function toggleSongs(singerId) {
+            const songList = document.getElementById(singerId);
+            if (songList.style.display === 'none') {
+                songList.style.display = 'block';
+            } else {
+                songList.style.display = 'none';
+            }
         }
 
-        // Lyrics data (manually added)
-        const lyricsData = [
-            { start: 0, end: 5, text: "誰よりも\n「救いたい」と悲劇を気取ってた" },
-            { start: 6, end: 10, text: "面倒よりも\nそれが砕いても、煮込んでも" },
-            { start: 11, end: 15, text: "食べれない故に" },
-            { start: 16, end: 20, text: "大脳の意思では\n静観がキメの一手なんだって" },
-            { start: 21, end: 25, text: "だが、心臓が言うに\n芽吹けば栄養さ" },
-            { start: 26, end: 30, text: "この先も誰かを想うたび\n風纏い擦り傷が絶えないだろう" },
-            { start: 31, end: 35, text: "だがやがてこの風、受けるたびに\nその、変え難い" },
-            { start: 36, end: 40, text: "ぬくい痛みに\n報われていたい\nはず" },
-            { start: 41, end: 45, text: "ジリジリ\n頬つたって痛いよ\n芽吹いた" },
-            { start: 46, end: 50, text: "ヒラヒラ\n喉元つたって\n吸い込み" },
-            { start: 51, end: 55, text: "肺が痛いよ\nでもね\nトクトク\nあたたかいね" }
-        ];
+        function loadSong(songId) {
+            const songTitle = document.getElementById('songTitle');
+            const video = document.getElementById('video');
+            const lyrics = document.getElementById('lyrics');
 
-        // Display Lyrics
-        function updateLyrics(currentTime) {
-            const lyricsContainer = document.getElementById('lyrics');
-            lyricsContainer.innerHTML = ''; // Clear existing lyrics
-            lyricsData.forEach(({ start, end, text }) => {
-                if (currentTime >= start && currentTime <= end) {
-                    const line = document.createElement('div');
-                    line.classList.add('highlight');
-                    line.textContent = text;
-                    lyricsContainer.appendChild(line);
-                }
-            });
+            switch(songId) {
+                case 'song1':
+                    songTitle.textContent = 'Bài hát 1 - Ca sĩ 1';
+                    video.src = 'https://www.youtube.com/embed/_zqKrYCj44Y?enablejsapi=1'; // Video YouTube
+                    lyrics.innerHTML = 'Lời bài hát 1...';
+                    break;
+                case 'song2':
+                    songTitle.textContent = 'Bài hát 2 - Ca sĩ 1';
+                    video.src = 'https://www.youtube.com/embed/another_video_id'; // Thay thế ID video
+                    lyrics.innerHTML = 'Lời bài hát 2...';
+                    break;
+                case 'song3':
+                    songTitle.textContent = 'Bài hát 3 - Ca sĩ 1';
+                    video.src = 'https://www.youtube.com/embed/another_video_id';
+                    lyrics.innerHTML = 'Lời bài hát 3...';
+                    break;
+                // Thêm các bài hát khác ở đây
+                case 'song4':
+                    songTitle.textContent = 'Bài hát 1 - Ca sĩ 2';
+                    video.src = 'https://www.youtube.com/embed/another_video_id';
+                    lyrics.innerHTML = 'Lời bài hát của Ca sĩ 2...';
+                    break;
+                case 'song5':
+                    songTitle.textContent = 'Bài hát 2 - Ca sĩ 2';
+                    video.src = 'https://www.youtube.com/embed/another_video_id';
+                    lyrics.innerHTML = 'Lời bài hát của Ca sĩ 2...';
+                    break;
+                // Tiếp tục thêm các bài hát của các ca sĩ khác...
+            }
         }
-
-        // Player Ready
-        function onPlayerReady(event) {
-            setInterval(() => {
-                const currentTime = player.getCurrentTime();
-                updateLyrics(currentTime);
-            }, 500);
-        }
-
-        function onPlayerStateChange(event) {}
-
-        // Load YouTube API Script
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     </script>
+
 </body>
 </html>
