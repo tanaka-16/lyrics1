@@ -3,41 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem Video và Lời Bài Hát</title>
+    <title>Video và Lời Bài Hát</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .video-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .lyrics-container {
+            flex: 1;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 1px solid #ddd;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
             margin-bottom: 20px;
         }
+
         .lyrics {
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
+            white-space: pre-line;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .lyrics p {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/JGwWNGJdvx8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <div class="container">
+        <!-- Video YouTube -->
+        <div class="video-container">
+            <h2>Video</h2>
+            <iframe src="https://www.youtube.com/embed/3TBYGSpt9V" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Lời bài hát -->
+        <div class="lyrics-container">
+            <h2>Lời Bài Hát</h2>
+            <div class="lyrics">
+                <!-- Chèn lời bài hát ở đây -->
+                <p>
+                    Đây là nơi bạn có thể chèn lời bài hát của mình. Ví dụ:
+                    <br> "Em ơi, em có nghe thấy không, bài hát này..."
+                </p>
+                <p>
+                    Tiếp theo là lời bài hát tiếp theo...
+                </p>
+                <!-- Thêm nhiều đoạn lời bài hát nếu cần -->
+            </div>
+        </div>
     </div>
-    <div class="lyrics">
-        <h2>Lời Bài Hát</h2>
-        <p>The club isn't the best place to find a lover
-        <br>So the bar is where I go (mm-mm)
-        <br>Me and my friends at the table doing shots
-        <br>Drinking fast, and then we talk slow (mm-mm)
-        </p>
-    </div>
+
 </body>
 </html>
