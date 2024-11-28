@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video với Lời Bài Hát</title>
+    <title>Video và Lời Bài Hát</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,7 +53,6 @@
     </style>
 </head>
 <body>
-
     <div class="video-container">
         <iframe id="video" src="https://www.youtube.com/embed/_zqKrYCj44Y?enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
@@ -64,41 +63,114 @@
         <p id="line3">面倒よりも</p>
         <p id="line4">それが砕いても、煮込んでも</p>
         <p id="line5">食べれない故に</p>
+        <p id="line6">大脳の意思では</p>
+        <p id="line7">静観がキメの一手なんだって</p>
+        <p id="line8">だが、心臓が言うに</p>
+        <p id="line9">芽吹けば栄養さ</p>
+        <p id="line10">この先も誰かを想うたび</p>
+        <p id="line11">風纏い擦り傷が絶えないだろう</p>
+        <p id="line12">だがやがてこの風、受けるたびに</p>
+        <p id="line13">その、変え難い</p>
+        <p id="line14">ぬくい痛みに</p>
+        <p id="line15">報われていたい</p>
+        <p id="line16">はず</p>
+        <p id="line17">ジリジリ</p>
+        <p id="line18">頬つたって痛いよ</p>
+        <p id="line19">芽吹いた</p>
+        <p id="line20">ヒラヒラ</p>
+        <p id="line21">喉元つたって</p>
+        <p id="line22">吸い込み</p>
+        <p id="line23">肺が痛いよ</p>
+        <p id="line24">でもね</p>
+        <p id="line25">トクトク</p>
+        <p id="line26">あたたかいね</p>
+        <p id="line27">それが大脳の意思では</p>
+        <p id="line28">食わず嫌いがキメの一手だったって</p>
+        <p id="line29">また、心臓が言うには</p>
+        <p id="line30">君もそう、風神さ</p>
+        <p id="line31">この先も誰かを想うたび</p>
+        <p id="line32">風纏い擦り傷が絶えないだろう</p>
+        <p id="line33">だがやがてこの風、受けるたびに</p>
+        <p id="line34">その、変え難い</p>
+        <p id="line35">ぬくい痛みに</p>
+        <p id="line36">拭われて</p>
+        <p id="line37">あなたを想うたびに</p>
+        <p id="line38">風纏い擦り傷が絶えないだろう</p>
+        <p id="line39">だがやがてこの風、受けるたびに</p>
+        <p id="line40">その、変え難い</p>
+        <p id="line41">ぬくい痛みに</p>
+        <p id="line42">救われていた</p>
+        <p id="line43">はずだから</p>
     </div>
 
     <script>
         const lyrics = [
-            { start: 0, end: 5, text: "line1" },  // Lời bài hát 1 (0-5 giây)
-            { start: 5, end: 10, text: "line2" }, // Lời bài hát 2 (5-10 giây)
-            { start: 10, end: 15, text: "line3" }, // Lời bài hát 3 (10-15 giây)
-            { start: 15, end: 20, text: "line4" }, // Lời bài hát 4 (15-20 giây)
-            { start: 20, end: 25, text: "line5" }  // Lời bài hát 5 (20-25 giây)
+            { start: 0, end: 3, id: "line1" },
+            { start: 3, end: 6, id: "line2" },
+            { start: 6, end: 9, id: "line3" },
+            { start: 9, end: 12, id: "line4" },
+            { start: 12, end: 15, id: "line5" },
+            { start: 15, end: 18, id: "line6" },
+            { start: 18, end: 21, id: "line7" },
+            { start: 21, end: 24, id: "line8" },
+            { start: 24, end: 27, id: "line9" },
+            { start: 27, end: 30, id: "line10" },
+            { start: 30, end: 33, id: "line11" },
+            { start: 33, end: 36, id: "line12" },
+            { start: 36, end: 39, id: "line13" },
+            { start: 39, end: 42, id: "line14" },
+            { start: 42, end: 45, id: "line15" },
+            { start: 45, end: 48, id: "line16" },
+            { start: 48, end: 51, id: "line17" },
+            { start: 51, end: 54, id: "line18" },
+            { start: 54, end: 57, id: "line19" },
+            { start: 57, end: 60, id: "line20" },
+            { start: 60, end: 63, id: "line21" },
+            { start: 63, end: 66, id: "line22" },
+            { start: 66, end: 69, id: "line23" },
+            { start: 69, end: 72, id: "line24" },
+            { start: 72, end: 75, id: "line25" },
+            { start: 75, end: 78, id: "line26" },
+            { start: 78, end: 81, id: "line27" },
+            { start: 81, end: 84, id: "line28" },
+            { start: 84, end: 87, id: "line29" },
+            { start: 87, end: 90, id: "line30" },
+            { start: 90, end: 93, id: "line31" },
+            { start: 93, end: 96, id: "line32" },
+            { start: 96, end: 99, id: "line33" },
+            { start: 99, end: 102, id: "line34" },
+            { start: 102, end: 105, id: "line35" },
+            { start: 105, end: 108, id: "line36" },
+            { start: 108, end: 111, id: "line37" },
+            { start: 111, end: 114, id: "line38" },
+            { start: 114, end: 117, id: "line39" },
+            { start: 117, end: 120, id: "line40" },
+            { start: 120, end: 123, id: "line41" },
+            { start: 123, end: 126, id: "line42" },
+            { start: 126, end: 129, id: "line43" }
         ];
 
         let player;
 
-        // Khi API YouTube sẵn sàng
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('video', {
                 events: {
-                    onStateChange: onPlayerStateChange
+                    onReady: startSync,
                 }
             });
         }
 
-        // Khi trạng thái video thay đổi
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                setInterval(() => {
+        function startSync() {
+            setInterval(() => {
+                if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
                     syncLyrics(player.getCurrentTime());
-                }, 500); // Cập nhật lời bài hát mỗi 500ms
-            }
+                }
+            }, 500);
         }
 
-        // Đồng bộ lời bài hát với thời gian phát
         function syncLyrics(currentTime) {
             lyrics.forEach(lyric => {
-                const line = document.getElementById(lyric.text);
+                const line = document.getElementById(lyric.id);
                 if (currentTime >= lyric.start && currentTime <= lyric.end) {
                     line.classList.add('active');
                 } else {
@@ -107,7 +179,6 @@
             });
         }
 
-        // Thêm script API YouTube
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         const firstScriptTag = document.getElementsByTagName('script')[0];
