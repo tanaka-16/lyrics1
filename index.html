@@ -55,15 +55,20 @@
             overflow-y: auto;
         }
         .sidebar ul {
-            list-style-type: decimal;
+            list-style-type: none;
             padding: 0;
         }
         .sidebar li {
             padding: 8px;
             cursor: pointer;
+            border-bottom: 1px solid #444;
         }
         .sidebar li:hover {
             background-color: #555;
+        }
+        .sidebar ul ul {
+            padding-left: 20px;
+            display: none;
         }
         .video-container {
             flex-grow: 1;
@@ -134,34 +139,33 @@
         // Hàm để load danh sách ca sĩ
         function loadArtists() {
             const artistsList = document.getElementById("artistsList");
-            for (let index = 0; index < Object.keys(songs).length; index++) {
-                const artistName = Object.keys(songs)[index];
+            for (let artistName in songs) {
                 const artistLi = document.createElement("li");
-                artistLi.textContent = `${index + 1}. ${artistName}`;
-                artistLi.onclick = function() { loadSongsForArtist(artistName); };
+                artistLi.textContent = artistName;
+                artistLi.onclick = function() { toggleSongList(artistName); };
                 artistsList.appendChild(artistLi);
             }
         }
 
-        // Hàm để load danh sách bài hát của ca sĩ
-        function loadSongsForArtist(artist) {
-            const artistListItems = document.querySelectorAll("#artistsList > li");
-            artistListItems.forEach(item => {
-                if (item.textContent.includes(artist)) {
-                    // Toggle list of songs for the artist
-                    const songList = document.createElement("ul");
-                    songs[artist].forEach(song => {
-                        const songLi = document.createElement("li");
-                        songLi.textContent = song.title;
-                        songLi.onclick = function() { loadSong(song); };
-                        songList.appendChild(songLi);
-                    });
-                    item.appendChild(songList);
-                } else {
-                    const songList = item.querySelector("ul");
-                    if (songList) songList.style.display = "none";
-                }
-            });
+        // Hàm để toggle danh sách bài hát của ca sĩ
+        function toggleSongList(artist) {
+            const artistLi = Array.from(document.querySelectorAll(".sidebar li")).find(item => item.textContent === artist);
+            const existingList = artistLi.querySelector("ul");
+            
+            if (existingList) {
+                // Nếu đã có danh sách, ẩn đi
+                existingList.style.display = existingList.style.display === "none" ? "block" : "none";
+            } else {
+                // Nếu chưa có, tạo mới danh sách bài hát
+                const songList = document.createElement("ul");
+                songs[artist].forEach(song => {
+                    const songLi = document.createElement("li");
+                    songLi.textContent = song.title;
+                    songLi.onclick = function() { loadSong(song); };
+                    songList.appendChild(songLi);
+                });
+                artistLi.appendChild(songList);
+            }
         }
 
         // Hàm để load video và lời bài hát
