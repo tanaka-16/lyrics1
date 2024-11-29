@@ -22,7 +22,7 @@
             width: 100%;
             max-width: 1200px;
         }
-        /* Left side: Artist list */
+        /* Left section: Artist list */
         .left {
             width: 25%;
             margin-right: 20px;
@@ -51,7 +51,7 @@
         .artist button:hover {
             background-color: #0056b3;
         }
-        /* Middle: Video player */
+        /* Middle section: Video player */
         .middle {
             width: 50%;
             margin-right: 20px;
@@ -63,7 +63,7 @@
             width: 100%;
             height: 315px;
         }
-        /* Right side: Lyrics and Ads */
+        /* Right section: Lyrics */
         .right {
             width: 25%;
             background-color: #fff;
@@ -71,9 +71,6 @@
             border: 1px solid #ddd;
             height: 600px;
             overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
         .lyrics {
             margin-bottom: 20px;
@@ -81,15 +78,16 @@
         .lyrics h3 {
             margin-bottom: 10px;
         }
-        .ads {
-            margin-top: 20px;
-            text-align: center;
-            height: 100px; /* Adjust the height if necessary */
-        }
         /* Border between sections */
         .section {
             border-bottom: 1px solid #ddd;
             margin-bottom: 20px;
+        }
+        /* Ad section */
+        .ads {
+            text-align: center;
+            margin-top: 20px;
+            height: 100px; /* Adjust the height if necessary */
         }
     </style>
 </head>
@@ -125,17 +123,9 @@
             <div id="video-player">
                 <iframe src="https://www.youtube.com/embed/_zqKrYCj44Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-        </div>
 
-        <!-- Right Section: Lyrics and Ads -->
-        <div class="right">
-            <div class="lyrics">
-                <h3>Song Lyrics</h3>
-                <p id="lyrics">Select a song to view the lyrics here.</p>
-            </div>
-
+            <!-- Google AdSense banner ad -->
             <div class="ads">
-                <!-- Google AdSense banner ad -->
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
                      style="display:block"
@@ -145,6 +135,14 @@
                 <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
+            </div>
+        </div>
+
+        <!-- Right Section: Lyrics -->
+        <div class="right">
+            <div class="lyrics">
+                <h3>Song Lyrics</h3>
+                <p id="lyrics">Select a song to view the lyrics here.</p>
             </div>
         </div>
     </div>
