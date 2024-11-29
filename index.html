@@ -3,184 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ca sĩ và bài hát</title>
+    <title>Music Lyrics</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
         }
-
-        /* Sidebar */
-        .sidebar {
-            width: 20%;
-            background-color: #eee;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar h2 {
-            text-align: center;
-        }
-
-        .singer {
-            margin-bottom: 20px;
-        }
-
-        .singer-name {
-            font-size: 18px;
-            cursor: pointer;
-            color: #007bff;
-        }
-
-        .song-list {
-            display: none;
-            list-style-type: none;
-            padding-left: 20px;
-        }
-
-        .song-item {
-            cursor: pointer;
-            color: #007bff;
-        }
-
-        /* Main content area */
-        .main-content {
-            width: 75%;
-            padding: 20px;
-        }
-
-        iframe {
+        .container {
+            display: flex;
             width: 100%;
-            height: 315px;
-            border: none;
+            max-width: 1200px;
         }
-
-        .lyrics {
-            margin-top: 20px;
-            background: #fff;
+        /* Left side: Artist list */
+        .left {
+            width: 25%;
+            margin-right: 20px;
+            background-color: #fff;
             padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            line-height: 1.5;
+            height: 600px;
+            overflow-y: auto;
         }
-
-        .highlight {
-            color: #d9534f;
-            font-weight: bold;
+        .left h2 {
+            text-align: center;
+            margin-bottom: 20px;
         }
-
+        .artist {
+            margin-bottom: 10px;
+        }
+        .artist button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
+        .artist button:hover {
+            background-color: #0056b3;
+        }
+        /* Middle: Video player */
+        .middle {
+            width: 50%;
+            margin-right: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .middle iframe {
+            width: 100%;
+            height: 315px;
+        }
+        /* Right side: Lyrics and Ads */
+        .right {
+            width: 25%;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            height: 600px;
+            overflow-y: auto;
+        }
+        .lyrics {
+            margin-bottom: 20px;
+        }
+        .lyrics h3 {
+            margin-bottom: 10px;
+        }
+        .ads {
+            margin-top: 20px;
+            text-align: center;
+        }
+        /* Border between sections */
+        .section {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-
-    <!-- Sidebar (left side) -->
-    <div class="sidebar">
-        <h2>Ca Sĩ</h2>
-        <div class="singer">
-            <div class="singer-name" onclick="toggleSongs('singer1')">Ca sĩ 1</div>
-            <ul id="singer1" class="song-list">
-                <li class="song-item" onclick="loadSong('song1')">Bài hát 1</li>
-                <li class="song-item" onclick="loadSong('song2')">Bài hát 2</li>
-                <li class="song-item" onclick="loadSong('song3')">Bài hát 3</li>
-            </ul>
+    <div class="container">
+        <!-- Left Section: Artist list -->
+        <div class="left">
+            <h2>Artist List</h2>
+            <div class="artist">
+                <button onclick="loadSong('song1')">Artist 1 - Song 1</button>
+                <button onclick="loadSong('song2')">Artist 1 - Song 2</button>
+            </div>
+            <div class="artist">
+                <button onclick="loadSong('song3')">Artist 2 - Song 1</button>
+                <button onclick="loadSong('song4')">Artist 2 - Song 2</button>
+            </div>
+            <div class="artist">
+                <button onclick="loadSong('song5')">Artist 3 - Song 1</button>
+                <button onclick="loadSong('song6')">Artist 3 - Song 2</button>
+            </div>
+            <div class="artist">
+                <button onclick="loadSong('song7')">Artist 4 - Song 1</button>
+                <button onclick="loadSong('song8')">Artist 4 - Song 2</button>
+            </div>
+            <div class="artist">
+                <button onclick="loadSong('song9')">Artist 5 - Song 1</button>
+                <button onclick="loadSong('song10')">Artist 5 - Song 2</button>
+            </div>
         </div>
 
-        <div class="singer">
-            <div class="singer-name" onclick="toggleSongs('singer2')">Ca sĩ 2</div>
-            <ul id="singer2" class="song-list">
-                <li class="song-item" onclick="loadSong('song4')">Bài hát 1</li>
-                <li class="song-item" onclick="loadSong('song5')">Bài hát 2</li>
-                <li class="song-item" onclick="loadSong('song6')">Bài hát 3</li>
-            </ul>
+        <!-- Middle Section: Video Player -->
+        <div class="middle">
+            <div id="video-player">
+                <!-- You can update the video iframe dynamically here -->
+                <iframe src="https://www.youtube.com/embed/_zqKrYCj44Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
 
-        <div class="singer">
-            <div class="singer-name" onclick="toggleSongs('singer3')">Ca sĩ 3</div>
-            <ul id="singer3" class="song-list">
-                <li class="song-item" onclick="loadSong('song7')">Bài hát 1</li>
-                <li class="song-item" onclick="loadSong('song8')">Bài hát 2</li>
-                <li class="song-item" onclick="loadSong('song9')">Bài hát 3</li>
-            </ul>
+        <!-- Right Section: Lyrics and Ads -->
+        <div class="right">
+            <div class="lyrics">
+                <h3>Song Lyrics</h3>
+                <p id="lyrics">Select a song to view the lyrics here.</p>
+            </div>
+
+            <div class="ads">
+                <!-- Example of Google AdSense ad code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-XXXXXXX"
+                    data-ad-slot="XXXXXXX"
+                    data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
-
-        <div class="singer">
-            <div class="singer-name" onclick="toggleSongs('singer4')">Ca sĩ 4</div>
-            <ul id="singer4" class="song-list">
-                <li class="song-item" onclick="loadSong('song10')">Bài hát 1</li>
-                <li class="song-item" onclick="loadSong('song11')">Bài hát 2</li>
-                <li class="song-item" onclick="loadSong('song12')">Bài hát 3</li>
-            </ul>
-        </div>
-
-        <div class="singer">
-            <div class="singer-name" onclick="toggleSongs('singer5')">Ca sĩ 5</div>
-            <ul id="singer5" class="song-list">
-                <li class="song-item" onclick="loadSong('song13')">Bài hát 1</li>
-                <li class="song-item" onclick="loadSong('song14')">Bài hát 2</li>
-                <li class="song-item" onclick="loadSong('song15')">Bài hát 3</li>
-            </ul>
-        </div>
-
-    </div>
-
-    <!-- Main content area (right side) -->
-    <div class="main-content">
-        <h1 id="songTitle">Chọn bài hát để nghe</h1>
-        <iframe id="video" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        <div id="lyrics" class="lyrics"></div>
     </div>
 
     <script>
-        function toggleSongs(singerId) {
-            const songList = document.getElementById(singerId);
-            if (songList.style.display === 'none') {
-                songList.style.display = 'block';
-            } else {
-                songList.style.display = 'none';
-            }
-        }
-
         function loadSong(songId) {
-            const songTitle = document.getElementById('songTitle');
-            const video = document.getElementById('video');
-            const lyrics = document.getElementById('lyrics');
+            var videoIframe = document.querySelector('iframe');
+            var lyricsText = document.getElementById('lyrics');
+            var videoSrc = '';
+            var lyrics = '';
 
-            switch(songId) {
+            switch (songId) {
                 case 'song1':
-                    songTitle.textContent = 'Bài hát 1 - Ca sĩ 1';
-                    video.src = 'https://www.youtube.com/embed/_zqKrYCj44Y?enablejsapi=1'; // Video YouTube
-                    lyrics.innerHTML = 'Lời bài hát 1...';
+                    videoSrc = 'https://www.youtube.com/embed/_zqKrYCj44Y';
+                    lyrics = `誰よりも\n「救いたい」と悲劇を気取ってた\n\n面倒よりも\nそれが砕いても、煮込んでも\n食べれない故に\n\n...`;
                     break;
                 case 'song2':
-                    songTitle.textContent = 'Bài hát 2 - Ca sĩ 1';
-                    video.src = 'https://www.youtube.com/embed/another_video_id'; // Thay thế ID video
-                    lyrics.innerHTML = 'Lời bài hát 2...';
+                    videoSrc = 'https://www.youtube.com/embed/XXXXXXX'; // Replace with actual video URL
+                    lyrics = `Lyrics for Song 2...`;
                     break;
                 case 'song3':
-                    songTitle.textContent = 'Bài hát 3 - Ca sĩ 1';
-                    video.src = 'https://www.youtube.com/embed/another_video_id';
-                    lyrics.innerHTML = 'Lời bài hát 3...';
+                    videoSrc = 'https://www.youtube.com/embed/XXXXXXX'; // Replace with actual video URL
+                    lyrics = `Lyrics for Song 3...`;
                     break;
-                // Thêm các bài hát khác ở đây
-                case 'song4':
-                    songTitle.textContent = 'Bài hát 1 - Ca sĩ 2';
-                    video.src = 'https://www.youtube.com/embed/another_video_id';
-                    lyrics.innerHTML = 'Lời bài hát của Ca sĩ 2...';
-                    break;
-                case 'song5':
-                    songTitle.textContent = 'Bài hát 2 - Ca sĩ 2';
-                    video.src = 'https://www.youtube.com/embed/another_video_id';
-                    lyrics.innerHTML = 'Lời bài hát của Ca sĩ 2...';
-                    break;
-                // Tiếp tục thêm các bài hát của các ca sĩ khác...
+                // Add more songs here...
+                default:
+                    videoSrc = 'https://www.youtube.com/embed/_zqKrYCj44Y';
+                    lyrics = 'Select a song to view the lyrics.';
             }
+
+            // Update the video and lyrics
+            videoIframe.src = videoSrc;
+            lyricsText.innerText = lyrics;
         }
     </script>
-
 </body>
 </html>
