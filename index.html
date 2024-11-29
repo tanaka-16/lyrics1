@@ -71,6 +71,9 @@
             border: 1px solid #ddd;
             height: 600px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .lyrics {
             margin-bottom: 20px;
@@ -81,6 +84,7 @@
         .ads {
             margin-top: 20px;
             text-align: center;
+            height: 100px; /* Adjust the height if necessary */
         }
         /* Border between sections */
         .section {
@@ -119,7 +123,6 @@
         <!-- Middle Section: Video Player -->
         <div class="middle">
             <div id="video-player">
-                <!-- You can update the video iframe dynamically here -->
                 <iframe src="https://www.youtube.com/embed/_zqKrYCj44Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
@@ -132,15 +135,15 @@
             </div>
 
             <div class="ads">
-                <!-- Example of Google AdSense ad code -->
+                <!-- Google AdSense banner ad -->
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-XXXXXXX"
-                    data-ad-slot="XXXXXXX"
-                    data-ad-format="auto"></ins>
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXX"  <!-- Thay thế "XXXXXXX" bằng ID quảng cáo của bạn -->
+                     data-ad-slot="XXXXXXX"            <!-- Thay thế "XXXXXXX" bằng ID slot quảng cáo của bạn -->
+                     data-ad-format="auto"></ins>
                 <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
