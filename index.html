@@ -95,34 +95,14 @@
 <body>
     <div class="container">
         <!-- Left Section: Artist list -->
-        <div class="left">
+        <div class="left" id="artist-list">
             <h2>Artist List</h2>
-            <div class="artist">
-                <button onclick="loadSong('song1')">Artist 1 - Song 1</button>
-                <button onclick="loadSong('song2')">Artist 1 - Song 2</button>
-            </div>
-            <div class="artist">
-                <button onclick="loadSong('song3')">Artist 2 - Song 1</button>
-                <button onclick="loadSong('song4')">Artist 2 - Song 2</button>
-            </div>
-            <div class="artist">
-                <button onclick="loadSong('song5')">Artist 3 - Song 1</button>
-                <button onclick="loadSong('song6')">Artist 3 - Song 2</button>
-            </div>
-            <div class="artist">
-                <button onclick="loadSong('song7')">Artist 4 - Song 1</button>
-                <button onclick="loadSong('song8')">Artist 4 - Song 2</button>
-            </div>
-            <div class="artist">
-                <button onclick="loadSong('song9')">Artist 5 - Song 1</button>
-                <button onclick="loadSong('song10')">Artist 5 - Song 2</button>
-            </div>
         </div>
 
         <!-- Middle Section: Video Player -->
         <div class="middle">
             <div id="video-player">
-                <iframe src="https://www.youtube.com/embed/_zqKrYCj44Y" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <!-- Google AdSense banner ad -->
@@ -149,35 +129,64 @@
     </div>
 
     <script>
-        function loadSong(songId) {
-            var videoIframe = document.querySelector('iframe');
-            var lyricsText = document.getElementById('lyrics');
-            var videoSrc = '';
-            var lyrics = '';
+        // Example song data
+        const songs = {
+            "artist1": [
+                { title: "Song 1", videoUrl: "https://www.youtube.com/embed/_zqKrYCj44Y", lyrics: "Song 1 lyrics..." },
+                { title: "Song 2", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Song 2 lyrics..." }
+            ],
+            "artist2": [
+                { title: "Song 3", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Song 3 lyrics..." },
+                { title: "Song 4", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Song 4 lyrics..." }
+            ],
+            "artist3": [
+                { title: "Song 5", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Song 5 lyrics..." },
+                { title: "Song 6", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Song 6 lyrics..." }
+            ],
+            // Add more artists and songs as needed
+        };
 
-            switch (songId) {
-                case 'song1':
-                    videoSrc = 'https://www.youtube.com/embed/_zqKrYCj44Y';
-                    lyrics = `誰よりも\n「救いたい」と悲劇を気取ってた\n\n面倒よりも\nそれが砕いても、煮込んでも\n食べれない故に\n\n...`;
-                    break;
-                case 'song2':
-                    videoSrc = 'https://www.youtube.com/embed/XXXXXXX'; // Replace with actual video URL
-                    lyrics = `Lyrics for Song 2...`;
-                    break;
-                case 'song3':
-                    videoSrc = 'https://www.youtube.com/embed/XXXXXXX'; // Replace with actual video URL
-                    lyrics = `Lyrics for Song 3...`;
-                    break;
-                // Add more songs here...
-                default:
-                    videoSrc = 'https://www.youtube.com/embed/_zqKrYCj44Y';
-                    lyrics = 'Select a song to view the lyrics.';
+        // Populate the artist list dynamically
+        function populateArtistList() {
+            const artistListContainer = document.getElementById("artist-list");
+            for (const artist in songs) {
+                const artistDiv = document.createElement("div");
+                artistDiv.classList.add("artist");
+
+                const artistButton = document.createElement("button");
+                artistButton.innerHTML = artist;
+                artistButton.onclick = () => loadSongsForArtist(artist);
+
+                artistDiv.appendChild(artistButton);
+                artistListContainer.appendChild(artistDiv);
             }
-
-            // Update the video and lyrics
-            videoIframe.src = videoSrc;
-            lyricsText.innerText = lyrics;
         }
+
+        // Load songs for a specific artist
+        function loadSongsForArtist(artist) {
+            const songListContainer = document.getElementById("artist-list");
+            songListContainer.innerHTML = ''; // Clear previous song list
+            const songsForArtist = songs[artist];
+
+            songsForArtist.forEach(song => {
+                const songButton = document.createElement("button");
+                songButton.innerHTML = song.title;
+                songButton.onclick = () => loadSong(song);
+                songListContainer.appendChild(songButton);
+            });
+        }
+
+        // Load selected song's video and lyrics
+        function loadSong(song) {
+            const videoIframe = document.querySelector('iframe');
+            const lyricsText = document.getElementById('lyrics');
+
+            videoIframe.src = song.videoUrl;
+            lyricsText.innerText = song.lyrics;
+        }
+
+        // Initialize the page
+        populateArtistList();
     </script>
 </body>
 </html>
