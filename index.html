@@ -9,178 +9,133 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
         header {
-            width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        header a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        header #title {
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .container {
             display: flex;
             justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 20px;
+            align-items: center;
+            background-color: #f4f4f4;
             padding: 10px;
-            margin-left: auto;
-            margin-right: auto;
+            border-bottom: 1px solid black;
         }
-        .sidebar {
-            width: 250px;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            height: 90vh;
-            overflow-y: auto;
-        }
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .sidebar li {
-            padding: 8px;
-            cursor: pointer;
-            border-bottom: 1px solid #444;
-        }
-        .sidebar li:hover {
-            background-color: #555;
-        }
-        .sidebar ul ul {
-            padding-left: 20px;
-            display: none;
-        }
-        .video-container {
-            flex-grow: 1;
-            text-align: center;
-        }
-        .lyrics-container {
-            width: 400px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            height: 90vh;
-            overflow-y: auto;
-        }
-        .lyrics-container h3 {
+        header a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
             font-size: 18px;
-            margin-top: 0;
         }
-        iframe {
+        header a:hover {
+            text-decoration: underline;
+        }
+        #main-container {
+            display: flex;
+            flex: 1;
+            border: 1px solid black;
+            margin: 10px;
+        }
+        #left-panel, #right-panel {
+            width: 20%;
+            border-right: 1px solid black;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #left-panel {
+            border-right: 1px solid black;
+        }
+        #right-panel {
+            border-left: 1px solid black;
+        }
+        #center-panel {
+            width: 60%;
+            text-align: center;
+            padding: 10px;
+        }
+        footer {
+            text-align: center;
+            border-top: 1px solid black;
+            padding: 10px;
+        }
+        .singer {
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .songs {
+            display: none;
+            margin-left: 10px;
+        }
+        .video-container iframe {
             width: 100%;
             height: 400px;
-            border: none;
+            border: 1px solid black;
+        }
+        .lyrics {
+            white-space: pre-wrap;
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="#" id="homeButton">Home</a>
-        <span id="title" onclick="window.location.href='https://www.youtube.com/channel/UCg_UuU1bZ2omIemwI1k0xdA';">Michiko Lyrics</span>
+        <a href="#" id="home-button">Home</a>
+        <a href="https://www.youtube.com/@MichikoLyrics" target="_blank">Michiko Lyrics</a>
     </header>
-    
-    <div class="container">
-        <!-- Sidebar with Artists and Songs -->
-        <div class="sidebar">
-            <ul id="artistsList">
-                <!-- Artists will be populated here dynamically -->
-            </ul>
+
+    <div id="main-container">
+        <!-- Left Panel: Singers and Song List -->
+        <div id="left-panel">
+            <div class="singer" onclick="toggleSongs(this)">1. Ca sĩ A</div>
+            <div class="songs">
+                <div onclick="loadSong('Ca khúc 1 của A', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Lời bài hát 1')">- Ca khúc 1 của A</div>
+                <div onclick="loadSong('Ca khúc 2 của A', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Lời bài hát 2')">- Ca khúc 2 của A</div>
+            </div>
+            <div class="singer" onclick="toggleSongs(this)">2. Ca sĩ B</div>
+            <div class="songs">
+                <div onclick="loadSong('Ca khúc 1 của B', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Lời bài hát B1')">- Ca khúc 1 của B</div>
+            </div>
         </div>
-        
-        <!-- Video and Lyrics Section -->
-        <div class="video-container">
-            <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+
+        <!-- Center Panel: Video -->
+        <div id="center-panel">
+            <h2 id="song-title">Chọn bài hát để nghe</h2>
+            <div class="video-container">
+                <iframe id="youtube-video" src="" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+            </div>
         </div>
-        
-        <!-- Lyrics Section -->
-        <div class="lyrics-container">
-            <h3>Lyrics:</h3>
-            <div id="lyricsText"></div>
+
+        <!-- Right Panel: Lyrics -->
+        <div id="right-panel">
+            <h2>Lời bài hát</h2>
+            <div id="lyrics" class="lyrics">Chọn bài hát để xem lời.</div>
         </div>
     </div>
 
+    <!-- Footer: Ads Banner -->
+    <footer>
+        <p>Quảng cáo từ Google AdSense</p>
+        <div style="border: 1px solid black; padding: 10px;">
+            <!-- Chèn mã quảng cáo Google AdSense ở đây -->
+        </div>
+    </footer>
+
     <script>
-        const songs = {
-            "Ca sĩ 1": [
-                { title: "Bài hát 1", videoUrl: "https://www.youtube.com/embed/_zqKrYCj44Y", lyrics: "Lời bài hát 1..." },
-                { title: "Bài hát 2", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 2..." }
-            ],
-            "Ca sĩ 2": [
-                { title: "Bài hát 3", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 3..." },
-                { title: "Bài hát 4", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 4..." }
-            ],
-            "Ca sĩ 3": [
-                { title: "Bài hát 5", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 5..." },
-                { title: "Bài hát 6", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 6..." }
-            ],
-            "Ca sĩ 4": [
-                { title: "Bài hát 7", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 7..." },
-                { title: "Bài hát 8", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 8..." }
-            ],
-            "Ca sĩ 5": [
-                { title: "Bài hát 9", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 9..." },
-                { title: "Bài hát 10", videoUrl: "https://www.youtube.com/embed/XXXXXXX", lyrics: "Lời bài hát 10..." }
-            ]
-        };
-
-        // Hàm để load danh sách ca sĩ
-        function loadArtists() {
-            const artistsList = document.getElementById("artistsList");
-            for (let artistName in songs) {
-                const artistLi = document.createElement("li");
-                artistLi.textContent = artistName;
-                artistLi.onclick = function() { toggleSongList(artistName); };
-                artistsList.appendChild(artistLi);
-            }
-        }
-
-        // Hàm để toggle danh sách bài hát của ca sĩ
-        function toggleSongList(artist) {
-            const artistLi = Array.from(document.querySelectorAll(".sidebar li")).find(item => item.textContent === artist);
-            const existingList = artistLi.querySelector("ul");
-            
-            if (existingList) {
-                // Nếu đã có danh sách, ẩn đi
-                existingList.style.display = existingList.style.display === "none" ? "block" : "none";
+        function toggleSongs(element) {
+            const songs = element.nextElementSibling;
+            if (songs.style.display === 'block') {
+                songs.style.display = 'none';
             } else {
-                // Nếu chưa có, tạo mới danh sách bài hát
-                const songList = document.createElement("ul");
-                songs[artist].forEach(song => {
-                    const songLi = document.createElement("li");
-                    songLi.textContent = song.title;
-                    songLi.onclick = function() { loadSong(song); };
-                    songList.appendChild(songLi);
-                });
-                artistLi.appendChild(songList);
+                songs.style.display = 'block';
             }
         }
 
-        // Hàm để load video và lời bài hát
-        function loadSong(song) {
-            document.getElementById("videoPlayer").src = song.videoUrl;
-            document.getElementById("lyricsText").textContent = song.lyrics;
+        function loadSong(title, videoUrl, lyrics) {
+            document.getElementById('song-title').innerText = title;
+            document.getElementById('youtube-video').src = videoUrl + "?autoplay=1&loop=1&playlist=" + videoUrl.split('/').pop();
+            document.getElementById('lyrics').innerText = lyrics;
         }
-
-        // Hàm load trang chủ (quay lại màn hình đầu tiên)
-        document.getElementById("homeButton").onclick = function() {
-            window.location.href = '/';
-        };
-
-        // Load danh sách ca sĩ khi trang web tải
-        window.onload = function() {
-            loadArtists();
-        };
     </script>
 </body>
 </html>
