@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,10 @@
             background-color: #f4f4f4;
             padding: 10px;
             border-bottom: 1px solid black;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
         header a {
             text-decoration: none;
@@ -35,13 +39,14 @@
             display: flex;
             flex: 1;
             border: 1px solid black;
-            margin: 10px;
+            margin: 60px 10px 10px; /* Chừa khoảng trống cho header */
         }
         #left-panel, #right-panel {
             width: 20%;
             border-right: 1px solid black;
             padding: 10px;
             overflow-y: auto;
+            height: calc(100vh - 80px); /* Chiều cao trừ đi header và margin */
         }
         #left-panel {
             border-right: 1px solid black;
@@ -64,9 +69,14 @@
             font-weight: bold;
             margin: 5px 0;
         }
-        .songs {
-            display: none;
+        .songs div {
+            cursor: pointer;
             margin-left: 10px;
+            margin-bottom: 5px;
+        }
+        .singer:hover, .songs div:hover {
+            text-decoration: underline;
+            color: blue;
         }
         .video-container iframe {
             width: 100%;
@@ -75,10 +85,13 @@
         }
         .lyrics {
             white-space: pre-wrap;
+            overflow-y: auto;
+            height: calc(100vh - 80px); /* Thanh cuộn riêng */
         }
     </style>
 </head>
 <body>
+    <!-- Header cố định -->
     <header>
         <a href="#" id="home-button">Home</a>
         <a href="https://www.youtube.com/@MichikoLyrics" target="_blank">Michiko Lyrics</a>
@@ -87,20 +100,20 @@
     <div id="main-container">
         <!-- Left Panel: Singers and Song List -->
         <div id="left-panel">
-            <div class="singer" onclick="toggleSongs(this)">1. Ca sĩ A</div>
+            <div class="singer" onclick="toggleSongs(this)">1. アーティストA</div>
             <div class="songs">
-                <div onclick="loadSong('Ca khúc 1 của A', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Lời bài hát 1')">- Ca khúc 1 của A</div>
-                <div onclick="loadSong('Ca khúc 2 của A', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Lời bài hát 2')">- Ca khúc 2 của A</div>
+                <div onclick="loadSong('曲A1', 'https://www.youtube.com/embed/dQw4w9WgXcQ', '歌詞 A1')">- 曲A1</div>
+                <div onclick="loadSong('曲A2', 'https://www.youtube.com/embed/dQw4w9WgXcQ', '歌詞 A2')">- 曲A2</div>
             </div>
-            <div class="singer" onclick="toggleSongs(this)">2. Ca sĩ B</div>
+            <div class="singer" onclick="toggleSongs(this)">2. アーティストB</div>
             <div class="songs">
-                <div onclick="loadSong('Ca khúc 1 của B', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Lời bài hát B1')">- Ca khúc 1 của B</div>
+                <div onclick="loadSong('曲B1', 'https://www.youtube.com/embed/dQw4w9WgXcQ', '歌詞 B1')">- 曲B1</div>
             </div>
         </div>
 
         <!-- Center Panel: Video -->
         <div id="center-panel">
-            <h2 id="song-title">Chọn bài hát để nghe</h2>
+            <h2 id="song-title">曲を選択してください</h2>
             <div class="video-container">
                 <iframe id="youtube-video" src="" frameborder="0" allow="autoplay" allowfullscreen></iframe>
             </div>
@@ -108,14 +121,14 @@
 
         <!-- Right Panel: Lyrics -->
         <div id="right-panel">
-            <h2>Lời bài hát</h2>
-            <div id="lyrics" class="lyrics">Chọn bài hát để xem lời.</div>
+            <h2>歌詞</h2>
+            <div id="lyrics" class="lyrics">曲を選択してください。</div>
         </div>
     </div>
 
     <!-- Footer: Ads Banner -->
     <footer>
-        <p>Quảng cáo từ Google AdSense</p>
+        <p>Google AdSenseの広告</p>
         <div style="border: 1px solid black; padding: 10px;">
             <!-- Chèn mã quảng cáo Google AdSense ở đây -->
         </div>
@@ -133,7 +146,7 @@
 
         function loadSong(title, videoUrl, lyrics) {
             document.getElementById('song-title').innerText = title;
-            document.getElementById('youtube-video').src = videoUrl + "?autoplay=1&loop=1&playlist=" + videoUrl.split('/').pop();
+            document.getElementById('youtube-video').src = videoUrl + "?autoplay=1&loop=1&playlist=" + videoUrl.split('/').pop() + "&controls=0&modestbranding=1";
             document.getElementById('lyrics').innerText = lyrics;
         }
     </script>
